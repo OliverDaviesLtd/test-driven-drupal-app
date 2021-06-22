@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="web/core/tests/bootstrap.php" colors="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         failOnWarning="true"
+         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
+         cacheResult="false">
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+    <env name="SIMPLETEST_BASE_URL" value="http://nginx"/>
+    <env name="SIMPLETEST_DB" value="sqlite://localhost//dev/shm/test.sqlite"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value=""/>
+    <env name="BROWSERTEST_OUTPUT_BASE_URL" value=""/>
+    <env name="MINK_DRIVER_CLASS" value=''/>
+    <env name="MINK_DRIVER_ARGS" value=''/>
+    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value=''/>
+  </php>
+  <testsuites>
+    <testsuite name="functional">
+      <directory suffix="Test.php">./web/modules/custom/**/tests/**/Functional</directory>
+    </testsuite>
+    <testsuite name="kernel">
+      <directory suffix="Test.php">./web/modules/custom/**/tests/**/Kernel</directory>
+    </testsuite>
+    <testsuite name="unit">
+      <directory suffix="Test.php">./web/modules/custom/**/tests/**/Unit</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

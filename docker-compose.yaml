@@ -1,0 +1,48 @@
+version: '2.4'
+
+volumes:
+  db-data:
+  files:
+
+services:
+  proxy:
+    image: nginxproxy/nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    ports:
+      - 80:80
+
+  nginx:
+    build:
+      context: .
+      dockerfile: tools/docker/images/Dockerfile
+    volumes:
+      - ./web:/app/web
+    depends_on:
+      php:
+        condition: service_started
+    environment:
+      VIRTUAL_HOST: tdd.localhost
+
+  php:
+    build:
+      context: .
+      dockerfile: tools/docker/images/Dockerfile
+      target: dev
+    volumes:
+      - ./:/app
+    env_file:
+      - .docker.env
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mariadb:10
+    volumes:
+      - db-data:/var/lib/mysql
+    env_file:
+      - .docker.env
+    healthcheck:
+      test: ["CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
+      interval: 1s
