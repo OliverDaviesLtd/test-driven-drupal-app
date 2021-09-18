@@ -84,6 +84,22 @@
                 "  * Remove the plugin that prints this message:",
                 "      composer remove drupal/core-project-message"
             ]
+        },
+        "violinist": {
+            "one_pull_request_per_package": 1,
+            "run_scripts": 0,
+            "bundled_packages": {
+                "drupal/core-recommended": [
+                    "drupal/core-composer-scaffold",
+                    "drupal/core-dev",
+                    "drupal/core-project-message"
+                ]
+            },
+            "blacklist": [
+                "drupal/core-composer-scaffold",
+                "drupal/core-dev",
+                "drupal/core-project-message"
+            ]
         }
     },
     "require-dev": {
