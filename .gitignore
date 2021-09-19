@@ -8,7 +8,7 @@
 !/.php-version
 !/composer.*
 !/config/**
-!/docker-compose.yaml
+!/docker-compose*.yaml
 !/Makefile
 !/phpstan.neon
 !/phpunit.xml.dist
