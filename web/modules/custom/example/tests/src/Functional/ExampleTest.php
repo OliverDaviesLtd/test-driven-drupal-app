@@ -17,6 +17,15 @@ final class ExampleTest extends BrowserTestBase {
   }
 
   /** @test */
+  public function non_admin_users_cannot_access_admin_pages(): void {
+    $this->drupalLogin($this->drupalCreateUser());
+
+    $this->drupalGet('/admin');
+
+    $this->assertSession()->statusCodeEquals(Response::HTTP_FORBIDDEN);
+  }
+
+  /** @test */
   public function admin_users_can_access_admin_pages(): void {
     $user = $this->drupalCreateUser(['access administration pages']);
     $this->drupalLogin($user);
