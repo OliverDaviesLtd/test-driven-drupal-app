@@ -19,9 +19,12 @@ final class ViewSessionTest extends BrowserTestBase {
 
   /** @test */
   public function a_session_page_can_be_viewed(): void {
+    $speaker = $this->drupalCreateUser([], 'Oliver Davies');
+
     $this->createSession([
       'path' => '/sessions/test-driven-drupal',
       'title' => 'Test Driven Drupal',
+      'uid' => $speaker->id(),
     ]);
 
     $this->drupalGet('/sessions/test-driven-drupal');
@@ -29,6 +32,7 @@ final class ViewSessionTest extends BrowserTestBase {
     $assert = $this->assertSession();
     $assert->statusCodeEquals(Response::HTTP_OK);
     $assert->pageTextContains('Test Driven Drupal');
+    $assert->pageTextContains('Oliver Davies');
   }
 
   private function createSession(array $values = []): NodeInterface {
