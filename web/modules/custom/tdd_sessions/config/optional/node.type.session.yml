@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies: {  }
+third_party_settings: {  }
+name: Session
+type: session
+description: 'A proposed or approved session, talk, or workshop.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false
