@@ -2,7 +2,7 @@
 
 <phpunit bootstrap="web/core/tests/bootstrap.php" colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutOutputDuringTests="true"
+         beStrictAboutOutputDuringTests="false"
          beStrictAboutChangesToGlobalState="true"
          failOnWarning="true"
          printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
