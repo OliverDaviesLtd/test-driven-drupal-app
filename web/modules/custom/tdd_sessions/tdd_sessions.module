@@ -8,6 +8,8 @@ function tdd_sessions_preprocess_node(array &$variables): void {
   /** @var NodeInterface $node */
   $node = $variables['node'];
 
-  // Add the name of the speaker to the session content.
-  $variables['content']['speaker']['#markup'] = $node->getOwner()->label();
+  if ($node->bundle() == 'session') {
+    // Add the name of the speaker to the session content.
+    $variables['content']['speaker']['#markup'] = $node->getOwner()->label();
+  }
 }
