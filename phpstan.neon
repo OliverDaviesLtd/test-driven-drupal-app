@@ -1,0 +1,10 @@
+parameters:
+  level: max
+  paths:
+    - web/modules/custom
+  excludePaths:
+    - *Test.php
+    - *TestBase.php
+
+includes:
+  - vendor/mglaman/phpstan-drupal/extension.neon
