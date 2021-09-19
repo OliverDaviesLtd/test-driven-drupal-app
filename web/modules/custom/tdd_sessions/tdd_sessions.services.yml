@@ -1,0 +1,4 @@
+services:
+  Drupal\tdd_sessions\EventSubscriber\PreprocessNodeEventSubscriber:
+    tags:
+      - { name: event_subscriber }

@@ -16,6 +16,10 @@ final class ViewSessionTest extends BrowserTestBase {
     'node',
     'path',
 
+    // Contrib.
+    'hook_event_dispatcher',
+    'preprocess_event_dispatcher',
+
     // Custom.
     'tdd_sessions',
     'tdd_sessions_test',
