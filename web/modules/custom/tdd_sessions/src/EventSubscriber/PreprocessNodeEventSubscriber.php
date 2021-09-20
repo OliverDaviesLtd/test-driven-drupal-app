@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class PreprocessNodeEventSubscriber implements EventSubscriberInterface {
 
   /**
-   * @return Array<string, string>
+   * @return array<string, string>
    */
   public static function getSubscribedEvents(): array {
     return [
@@ -31,7 +31,7 @@ final class PreprocessNodeEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * @param Array<string, mixed> $content
+   * @param array<string, mixed> $content
    */
   private function addSpeakerName(PreprocessEventInterface $event, array &$content): void {
     /** @var NodeEventVariables $variables */
