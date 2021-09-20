@@ -1,0 +1,48 @@
+<?php
+
+namespace Drupal\Tests\tdd_sessions\Functional;
+
+use Drupal\Tests\BrowserTestBase;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+
+final class SubmitSessionTest extends BrowserTestBase {
+
+  public $defaultTheme = 'stark';
+
+  public static $modules = [
+    // Core.
+    'filter',
+    'node',
+    'path',
+
+    // Custom.
+    'tdd_sessions',
+    'tdd_sessions_test',
+  ];
+
+  /** @test */
+  public function a_potential_speaker_can_submit_a_session_proposal(): void {
+    $speaker = $this->createUser(['create session content']);
+
+    $this->drupalLogin($speaker);
+
+    $this->assertNull(Node::load(1));
+
+    $edit = [
+      'body[0][value]' => 'A session on automated testing and test-driven development in Drupal.',
+      'title[0][value]' => 'Test Driven Drupal',
+    ];
+
+    $this->drupalPostForm('/node/add/session', $edit, 'Save');
+
+    $session = Node::load(1);
+
+    $this->assertNotNull($session);
+    $this->assertInstanceOf(NodeInterface::class, $session);
+    $this->assertSame('Test Driven Drupal', $session->label());
+    $this->assertSame('A session on automated testing and test-driven development in Drupal.', $session->get('body')->getValue()[0]['value']);
+    $this->assertSame($speaker->id(), $session->getOwnerId());
+  }
+
+}
