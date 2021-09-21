@@ -2,24 +2,10 @@
 
 namespace Drupal\Tests\tdd_sessions\Functional;
 
-use Drupal\Tests\BrowserTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
-final class SubmitSessionTest extends BrowserTestBase {
-
-  public $defaultTheme = 'stark';
-
-  public static $modules = [
-    // Core.
-    'filter',
-    'node',
-    'path',
-
-    // Custom.
-    'tdd_sessions',
-    'tdd_sessions_test',
-  ];
+final class SubmitSessionTest extends SessionTestBase {
 
   /** @test */
   public function a_potential_speaker_can_submit_a_session_proposal(): void {

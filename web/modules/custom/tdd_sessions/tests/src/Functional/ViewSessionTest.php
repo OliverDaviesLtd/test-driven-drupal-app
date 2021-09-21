@@ -2,28 +2,9 @@
 
 namespace Drupal\Tests\tdd_sessions\Functional;
 
-use Drupal\Tests\BrowserTestBase;
-use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ViewSessionTest extends BrowserTestBase {
-
-  public $defaultTheme = 'stark';
-
-  public static $modules = [
-    // Core.
-    'filter',
-    'node',
-    'path',
-
-    // Contrib.
-    'hook_event_dispatcher',
-    'preprocess_event_dispatcher',
-
-    // Custom.
-    'tdd_sessions',
-    'tdd_sessions_test',
-  ];
+final class ViewSessionTest extends SessionTestBase {
 
   /** @test */
   public function a_session_page_can_be_viewed(): void {
@@ -65,13 +46,5 @@ final class ViewSessionTest extends BrowserTestBase {
     $assert->pageTextNotContains('Oliver Davies');
   }
 
-
-  private function createSession(array $values = []): NodeInterface {
-    $defaults = [
-      'type' => 'session',
-    ];
-
-    return $this->drupalCreateNode($values + $defaults);
-  }
 
 }
