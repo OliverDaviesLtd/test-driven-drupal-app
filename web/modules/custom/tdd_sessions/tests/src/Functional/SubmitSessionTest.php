@@ -23,10 +23,12 @@ final class SubmitSessionTest extends BrowserTestBase {
 
   /** @test */
   public function a_potential_speaker_can_submit_a_session_proposal(): void {
+    // Arrange.
     $speaker = $this->createUser(['create session content']);
 
     $this->drupalLogin($speaker);
 
+    // Act.
     $this->assertNull(Node::load(1));
 
     $edit = [
@@ -36,8 +38,8 @@ final class SubmitSessionTest extends BrowserTestBase {
 
     $this->drupalPostForm('/node/add/session', $edit, 'Save');
 
+    // Assert.
     $session = Node::load(1);
-
     $this->assertNotNull($session);
     $this->assertInstanceOf(NodeInterface::class, $session);
     $this->assertSame('Test Driven Drupal', $session->label());
