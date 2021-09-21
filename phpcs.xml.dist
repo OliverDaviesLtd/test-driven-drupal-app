@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="Custom code">
+  <description>Drupal Coding Standards</description>
+
+  <file>./web/modules/custom</file>
+  <arg name="extensions" value="inc,install,module,php,profile,test,theme,yml"/>
+
+  <!-- Exclude third party code.-->
+  <exclude-pattern>./web/sites/*</exclude-pattern>
+  <exclude-pattern>./web/themes/custom/*\.(?!theme$)</exclude-pattern>
+
+  <!-- Exclude tests -->
+  <exclude-pattern>./web/modules/custom/**/*Test.php</exclude-pattern>
+
+  <arg name="colors"/>
+  <arg value="np"/>
+
+  <rule ref="Drupal">
+    <exclude name="Drupal.Commenting.ClassComment.Missing"/>
+    <exclude name="Drupal.Commenting.DataTypeNamespace.DataTypeNamespace"/>
+    <exclude name="Drupal.Commenting.DocComment.MissingShort"/>
+    <exclude name="Drupal.Commenting.FunctionComment.Missing"/>
+    <exclude name="Drupal.Commenting.FunctionComment.MissingParamComment"/>
+    <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition"/>
+    <exclude name="Drupal.Commenting.FunctionComment.ParamTypeSpaces"/>
+    <exclude name="Drupal.Commenting.FunctionComment.MissingReturnComment"/>
+    <exclude name="Drupal.Commenting.VariableComment.Missing"/>
+  </rule>
+
+  <rule ref="DrupalPractice">
+    <exclude name="DrupalPractice.Objects.StrictSchemaDisabled.StrictConfigSchema"/>
+  </rule>
+</ruleset>

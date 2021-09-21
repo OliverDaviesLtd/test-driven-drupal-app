@@ -1,5 +1,8 @@
 COMPOSE_PROJECT_NAME?=test-driven-drupal-app
 
+coding-standards: vendor
+	COMPOSE_PROJECT_NAME=$(COMPOSE_PROJECT_NAME) docker-compose exec -T php bash -c 'phpcs'
+
 destroy:
 	COMPOSE_PROJECT_NAME=$(COMPOSE_PROJECT_NAME) docker-compose down --volumes --remove-orphans
 
