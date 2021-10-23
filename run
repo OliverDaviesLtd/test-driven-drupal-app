@@ -1,0 +1,86 @@
+#!/bin/bash
+
+set -e
+
+function bash {
+  cmd bash "${@}"
+}
+
+function cmd {
+  # Run any command in the php container.
+  _dc php "${@}"
+}
+
+function composer {
+  # Execute Composer commands.
+  cmd composer "${@}"
+}
+
+function drupal:files-directory-permissions {
+  # Ensure that the files directory exists and is writable.
+  cmd mkdir -p ${DRUPAL_DOCROOT}/sites/default/files
+  cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/default/files
+}
+
+function drupal:install {
+  # Install Drupal.
+  drush site:install -y --account-pass admin123 --site-name "TestConf"
+
+  drupal:files-directory-permissions
+}
+
+function drupal:simpletest-directory-permissions {
+  # Ensure that the simpletest site directory exists and is writable.
+  cmd mkdir -p ${DRUPAL_DOCROOT}/sites/simpletest
+  cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/simpletest
+}
+
+function drush {
+  # Execute Drush commands.
+  cmd drush "${@}"
+}
+
+function help {
+  printf "%s <task> [args]\n\nTasks:\n" "${0}"
+
+  compgen -A function | grep -v "^_" | cat -n
+
+  printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+function test:functional {
+  . .env
+
+  drupal:files-directory-permissions
+  drupal:simpletest-directory-permissions
+
+  _run_tests --testsuite functional "${@}"
+}
+
+function test:integration {
+  # Run integration tests.
+  _run_tests --testsuite kernel "${@}"
+}
+
+function test:quality {
+  # Run quality checks (code linting, static analysis, etc.).
+  cmd phpcs
+  cmd phpstan
+}
+
+function test:unit {
+  # Run unit tests.
+  _run_tests --testsuite unit "${@}"
+}
+
+function _dc {
+  docker-compose exec "${@}"
+}
+
+function _run_tests {
+  . .env
+
+  _dc --user ${DOCKER_WEB_USER} php phpunit "${@}"
+}
+
+eval "${@:-help}"

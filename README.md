@@ -2,8 +2,17 @@
 
 ## Installing Drupal
 
-    docker-compose exec php drush site:install -y --account-pass=admin120 --site-name="TestConf"
+    ./run drupal:install
 
 ## Running tests
 
-    docker-compose exec -u www-data php phpunit
+```bash
+# Functional tests
+./run test:functional
+
+# Kernel tests
+./run test:integration
+
+# Unit tests
+./run test:unit
+```

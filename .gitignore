@@ -13,6 +13,7 @@
 !/phpcs.xml.dist
 !/phpstan.neon
 !/phpunit.xml.dist
+!/run
 !/tools/**
 !/web/modules/custom/**
 !/web/sites/default/settings.php
