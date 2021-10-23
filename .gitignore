@@ -9,7 +9,6 @@
 !/composer.*
 !/config/**
 !/docker-compose*.yaml
-!/Makefile
 !/phpcs.xml.dist
 !/phpstan.neon
 !/phpunit.xml.dist
