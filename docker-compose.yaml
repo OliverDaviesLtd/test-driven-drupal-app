@@ -13,7 +13,7 @@ services:
     volumes:
       - ./:/var/www/html
     env_file:
-      - .docker.env
+      - .env
     ports:
       - 80:80
     depends_on:
@@ -25,7 +25,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     env_file:
-      - .docker.env
+      - .env
     healthcheck:
       test: ["CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
       interval: 1s

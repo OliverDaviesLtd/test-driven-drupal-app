@@ -1,7 +1,7 @@
 *
 !*/
 !/*.md
-!/.docker.env.example
+!/.env.example
 !/.github/**
 !/.gitignore
 !/.idea/**
