@@ -1,19 +1,18 @@
 version: '2.4'
 
-volumes:
-  db-data:
-  files:
+x-app: &default-app
+  env_file:
+    - .env
 
 services:
   php:
+    <<: *default-app
     build:
       context: .
       dockerfile: tools/docker/images/Dockerfile
       target: dev
     volumes:
       - ./:/var/www/html
-    env_file:
-      - .env
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:80}:80"
     tty: true
@@ -22,12 +21,14 @@ services:
         condition: service_healthy
 
   mysql:
+    <<: *default-app
     image: mariadb:10
     volumes:
       - db-data:/var/lib/mysql
-    env_file:
-      - .env
-    tty: true
     healthcheck:
       test: ["CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
       interval: 1s
+
+volumes:
+  db-data:
+  files:
