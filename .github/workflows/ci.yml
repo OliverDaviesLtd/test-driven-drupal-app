@@ -8,35 +8,33 @@ on:
 
 env:
   COMPOSE_DOCKER_CLI_BUILD: 1
-  COMPOSE_PROJECT_NAME: test-driven-drupal-app
   DOCKER_BUILDKIT: 1
 
 jobs:
-  coding-standards:
-    name: Coding standards
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
-      - run: cp .env.example .env
-      - run: make enable
-      - run: make coding-standards
-
-  static-code-analysis:
+  test-quality:
     name: Static code analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
       - run: cp .env.example .env
-      - run: make enable
-      - run: make static-code-analysis
+      - run: docker-compose up -d
+      - run: ./run composer install
+      - run: ./run test:quality
 
   tests:
     name: Run PHPUnit tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        testsuite:
+          - functional
+          #- integration
+          #- unit
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
       - run: cp .env.example .env
-      - run: make enable
-      - run: make tests
+      - run: docker-compose up -d
+      - run: ./run composer install
+      - run: ./run test:${{ matrix.testsuite }} --testdox
         env:
           SIMPLETEST_DB: 'mysql://mysql/drupal:drupal/drupal'

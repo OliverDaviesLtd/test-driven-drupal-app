@@ -16,6 +16,7 @@ services:
       - .env
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:80}:80"
+    tty: true
     depends_on:
       mysql:
         condition: service_healthy
@@ -26,6 +27,7 @@ services:
       - db-data:/var/lib/mysql
     env_file:
       - .env
+    tty: true
     healthcheck:
       test: ["CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
       interval: 1s

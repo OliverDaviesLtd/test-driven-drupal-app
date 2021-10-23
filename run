@@ -2,6 +2,11 @@
 
 set -e
 
+TTY=""
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
 function bash {
   cmd bash "${@}"
 }
@@ -74,7 +79,7 @@ function test:unit {
 }
 
 function _dc {
-  docker-compose exec "${@}"
+  docker-compose exec ${TTY} "${@}"
 }
 
 function _run_tests {
