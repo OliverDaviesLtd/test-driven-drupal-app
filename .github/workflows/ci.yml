@@ -12,7 +12,7 @@ env:
 
 jobs:
   test-quality:
-    name: Static code analysis
+    name: Run quality checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
@@ -22,7 +22,7 @@ jobs:
       - run: ./run test:quality
 
   tests:
-    name: Run PHPUnit tests
+    name: Run tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
