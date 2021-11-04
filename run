@@ -36,23 +36,11 @@ function composer {
   cmd composer "${@}"
 }
 
-function drupal:files-directory-permissions {
-  # Ensure that the files directory exists and is writable.
-  cmd mkdir -p ${DRUPAL_DOCROOT}/sites/default/files
-  cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/default/files
-}
-
 function drupal:install {
   # Install Drupal.
   drush site:install -y --account-pass admin123 --site-name "TestConf"
 
   drupal:files-directory-permissions
-}
-
-function drupal:simpletest-directory-permissions {
-  # Ensure that the simpletest site directory exists and is writable.
-  cmd mkdir -p ${DRUPAL_DOCROOT}/sites/simpletest
-  cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/simpletest
 }
 
 function drush {
@@ -71,8 +59,8 @@ function help {
 function test:functional {
   . .env
 
-  drupal:files-directory-permissions
-  drupal:simpletest-directory-permissions
+  _fix_public_files_directory_permissions
+  _fix_simpletest_directory_permissions
 
   _run_tests --testsuite functional "${@}"
 }
@@ -96,6 +84,18 @@ function test:unit {
 
 function _dc {
   docker-compose ${DC} ${TTY} "${@}"
+}
+
+function _fix_public_files_directory_permissions {
+  # Ensure that the files directory exists and is writable.
+  cmd mkdir -p ${DRUPAL_DOCROOT}/sites/default/files
+  cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/default/files
+}
+
+function _fix_simpletest_directory_permissions {
+  # Ensure that the simpletest site directory exists and is writable.
+  cmd mkdir -p ${DRUPAL_DOCROOT}/sites/simpletest
+  cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/simpletest
 }
 
 function _run_tests {
