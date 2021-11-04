@@ -13,6 +13,19 @@ function bash {
   cmd bash "${@}"
 }
 
+function ci:test {
+  cp .env.example .env
+
+  docker-compose up --detach
+
+  composer validate --strict
+  composer install
+
+  test:quality
+
+  DC=exec test:functional --testdox
+}
+
 function cmd {
   # Run any command in the php container.
   _dc php "${@}"
