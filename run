@@ -21,9 +21,10 @@ function ci:test {
   composer validate --strict
   composer install
 
-  test:quality
-
-  DC=exec test:functional --testdox
+  DC=exec
+  test:quality \
+    & test:functional --testdox \
+    & wait
 }
 
 function cmd {
