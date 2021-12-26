@@ -14,6 +14,8 @@ function bash {
 }
 
 function ci:test {
+  lint:dockerfile
+
   cp .env.example .env
 
   docker-compose up --detach
@@ -55,6 +57,14 @@ function help {
   compgen -A function | grep -v "^_" | cat -n
 
   printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+function lint:dockerfile {
+  docker container run --rm -i \
+    hadolint/hadolint hadolint \
+    --ignore=DL3008 \
+    --ignore=DL3022 \
+    "${@}" - < tools/docker/images/Dockerfile
 }
 
 function test:functional {
