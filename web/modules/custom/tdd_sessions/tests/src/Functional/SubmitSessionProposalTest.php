@@ -5,7 +5,7 @@ namespace Drupal\Tests\tdd_sessions\Functional;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
-final class SubmitSessionTest extends SessionTestBase {
+final class SubmitSessionProposalTest extends SessionTestBase {
 
   /** @test */
   public function a_potential_speaker_can_submit_a_session_proposal(): void {
