@@ -67,18 +67,24 @@ function shell {
   cmd bash "${@}"
 }
 
+function test {
+  . .env
+
+  _dc --user ${DOCKER_WEB_USER} php phpunit "${@}"
+}
+
 function test:functional {
   . .env
 
   _fix_public_files_directory_permissions
   _fix_simpletest_directory_permissions
 
-  _run_tests --testsuite functional "${@}"
+  test --testsuite functional "${@}"
 }
 
 function test:integration {
   # Run integration tests.
-  _run_tests --testsuite kernel "${@}"
+  test --testsuite kernel "${@}"
 }
 
 function test:quality {
@@ -90,7 +96,7 @@ function test:quality {
 
 function test:unit {
   # Run unit tests.
-  _run_tests --testsuite unit "${@}"
+  test --testsuite unit "${@}"
 }
 
 function _dc {
@@ -107,12 +113,6 @@ function _fix_simpletest_directory_permissions {
   # Ensure that the simpletest site directory exists and is writable.
   cmd mkdir -p ${DRUPAL_DOCROOT}/sites/simpletest
   cmd chown -R ${DOCKER_WEB_USER}:${DOCKER_WEB_USER} ${DRUPAL_DOCROOT}/sites/simpletest
-}
-
-function _run_tests {
-  . .env
-
-  _dc --user ${DOCKER_WEB_USER} php phpunit "${@}"
 }
 
 eval "${@:-help}"
