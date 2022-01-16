@@ -7,7 +7,6 @@ services:
     <<: *default-app
     build:
       context: .
-      dockerfile: tools/docker/images/Dockerfile
       target: dev
     volumes:
       - ./:/var/www/html

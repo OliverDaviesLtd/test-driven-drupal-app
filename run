@@ -60,7 +60,7 @@ function lint:dockerfile {
     hadolint/hadolint hadolint \
     --ignore=DL3008 \
     --ignore=DL3022 \
-    "${@}" - < tools/docker/images/Dockerfile
+    "${@}" - < Dockerfile
 }
 
 function shell {
