@@ -20,7 +20,8 @@
         "drupal/core-project-message": "^9.2",
         "drupal/core-recommended": "^9.2",
         "drupal/hook_event_dispatcher": "^2.5",
-        "drush/drush": "^10.5"
+        "drush/drush": "^10.5",
+        "symfony/config": "^4"
     },
     "conflict": {
         "drupal/drupal": "*"

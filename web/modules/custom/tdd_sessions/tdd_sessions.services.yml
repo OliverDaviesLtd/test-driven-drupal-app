@@ -1,4 +1,13 @@
 services:
+  Drupal\Core\Mail\MailManagerInterface:
+    alias: "plugin.manager.mail"
+    private: true
+
   Drupal\tdd_sessions\EventSubscriber\PreprocessNodeEventSubscriber:
+    tags:
+      - { name: event_subscriber }
+
+  Drupal\tdd_sessions\EventSubscriber\EmailSessionProposalConfirmationToUser:
+    autowire: true
     tags:
       - { name: event_subscriber }

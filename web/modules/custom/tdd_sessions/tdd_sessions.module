@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_mail().
+ */
+function tdd_sessions_mail(string $key, array &$message, array $params) {
+  switch ($key) {
+    case 'session_proposed':
+      $message['subject'] = '';
+      $message['body'][] = '';
+      break;
+  }
+}
