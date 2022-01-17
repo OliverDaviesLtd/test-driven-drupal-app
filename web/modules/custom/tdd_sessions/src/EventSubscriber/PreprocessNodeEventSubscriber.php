@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\tdd_sessions\EventSubscriber;
 
-use Drupal\node\NodeInterface;
 use Drupal\preprocess_event_dispatcher\Event\NodePreprocessEvent;
 use Drupal\preprocess_event_dispatcher\Event\PreprocessEventInterface;
 use Drupal\preprocess_event_dispatcher\Variables\NodeEventVariables;
@@ -12,9 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PreprocessNodeEventSubscriber implements EventSubscriberInterface {
 
-  /**
-   * @return array<string, string>
-   */
   public static function getSubscribedEvents(): array {
     return [
       NodePreprocessEvent::name('session') => 'preprocessSession',
@@ -30,13 +26,10 @@ final class PreprocessNodeEventSubscriber implements EventSubscriberInterface {
     $variables->set('content', $content);
   }
 
-  /**
-   * @param array<string, mixed> $content
-   */
   private function addSpeakerName(PreprocessEventInterface $event, array &$content): void {
-    /** @var NodeEventVariables $variables */
+    /** @var NodeEventVariables */
     $variables = $event->getVariables();
-    /** @var NodeInterface<string, mixed> $session */
+
     $session = $variables->getNode();
 
     $content['speaker']['#markup'] = $session->getOwner()->label();
