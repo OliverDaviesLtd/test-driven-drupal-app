@@ -34,9 +34,11 @@ final class EmailSessionProposalConfirmationToSpeaker implements EventSubscriber
 
     $speaker = $entity->getOwner();
 
-    if ($emailAddress = $speaker->getEmail()) {
-      $this->mailManager->mail('tdd_sessions', self::MAIL_KEY, $emailAddress, $speaker->getPreferredLangcode());
+    if (!$emailAddress = $speaker->getEmail()) {
+      return;
     }
+
+    $this->mailManager->mail('tdd_sessions', self::MAIL_KEY, $emailAddress, $speaker->getPreferredLangcode());
   }
 
 }
