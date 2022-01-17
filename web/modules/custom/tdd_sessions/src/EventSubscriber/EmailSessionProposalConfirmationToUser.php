@@ -12,6 +12,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EmailSessionProposalConfirmationToUser implements EventSubscriberInterface {
 
+  public const MAIL_KEY = 'session_proposed';
+
   public function __construct(
     private MailManagerInterface $mailManager,
   ) {}
@@ -33,7 +35,7 @@ final class EmailSessionProposalConfirmationToUser implements EventSubscriberInt
     $speaker = $entity->getOwner();
 
     if ($emailAddress = $speaker->getEmail()) {
-      $this->mailManager->mail('tdd_sessions', 'session_proposed', $emailAddress, $speaker->getPreferredLangcode());
+      $this->mailManager->mail('tdd_sessions', self::MAIL_KEY, $emailAddress, $speaker->getPreferredLangcode());
     }
   }
 

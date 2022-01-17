@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Drupal\tdd_sessions\EventSubscriber\EmailSessionProposalConfirmationToUser;
+
 /**
  * Implements hook_mail().
  */
 function tdd_sessions_mail(string $key, array &$message, array $params) {
   switch ($key) {
-    case 'session_proposed':
+    case EmailSessionProposalConfirmationToUser::MAIL_KEY:
       $message['subject'] = '';
       $message['body'][] = '';
       break;
