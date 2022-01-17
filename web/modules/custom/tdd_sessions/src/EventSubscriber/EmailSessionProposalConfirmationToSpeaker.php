@@ -10,7 +10,7 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class EmailSessionProposalConfirmationToUser implements EventSubscriberInterface {
+final class EmailSessionProposalConfirmationToSpeaker implements EventSubscriberInterface {
 
   public const MAIL_KEY = 'session_proposed';
 

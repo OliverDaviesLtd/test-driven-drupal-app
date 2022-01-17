@@ -7,7 +7,7 @@ services:
     tags:
       - { name: event_subscriber }
 
-  Drupal\tdd_sessions\EventSubscriber\EmailSessionProposalConfirmationToUser:
+  Drupal\tdd_sessions\EventSubscriber\EmailSessionProposalConfirmationToSpeaker:
     autowire: true
     tags:
       - { name: event_subscriber }
