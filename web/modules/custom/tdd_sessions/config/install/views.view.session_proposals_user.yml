@@ -21,7 +21,7 @@ display:
       access:
         type: perm
         options:
-          perm: "access content"
+          perm: "create session content"
       cache:
         type: tag
         options: {}

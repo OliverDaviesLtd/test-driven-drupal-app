@@ -45,4 +45,12 @@ class ViewSessionProposalTest extends SessionTestBase {
     $assert->pageTextContainsOnce('Taking Flight with Tailwind CSS');
     $assert->pageTextNotContains('Deploying PHP applications with Ansible and Ansistrano');
   }
+
+  /** @test */
+  public function anonymous_users_should_not_see_a_session_proposals_page(): void {
+    $this->drupalGet("user/0/sessions");
+
+    $this->assertSession()->statusCodeEquals(Response::HTTP_FORBIDDEN);
+  }
+
 }
