@@ -4,5 +4,6 @@ core_version_requirement: ^9
 package: Test Driven Drupal
 dependencies:
   - drupal:node
+  - drupal:views
   - hook_event_dispatcher:hook_event_dispatcher
   - hook_event_dispatcher:preprocess_event_dispatcher
