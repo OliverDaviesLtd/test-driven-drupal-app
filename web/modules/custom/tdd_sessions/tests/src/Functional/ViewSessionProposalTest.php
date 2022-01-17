@@ -8,7 +8,8 @@ class ViewSessionProposalTest extends SessionTestBase {
 
   /** @test */
   public function a_user_should_be_able_to_view_their_proposed_sessions(): void {
-    $this->drupalLogin($user = $this->drupalCreateUser(['create session content']));
+    $user = $this->drupalCreateUser(['create session content']);
+    $this->drupalLogin($user);
 
     $this->createSession([
       'title' => 'Taking Flight with Tailwind CSS',
@@ -25,8 +26,10 @@ class ViewSessionProposalTest extends SessionTestBase {
 
   /** @test */
   public function a_user_should_see_only_their_sessions(): void {
-    $this->drupalLogin($userA = $this->drupalCreateUser(['create session content']));
+    $userA = $this->drupalCreateUser(['create session content']);
     $userB = $this->drupalCreateUser(['create session content']);
+
+    $this->drupalLogin($userA);
 
     $this->createSession([
       'title' => 'Taking Flight with Tailwind CSS',
