@@ -19,6 +19,7 @@ class ViewSessionProposalTest extends SessionTestBase {
 
     $assert = $this->assertSession();
     $assert->statusCodeEquals(Response::HTTP_OK);
+    $assert->pageTextContains('My proposed sessions');
     $assert->pageTextContainsOnce('Taking Flight with Tailwind CSS');
   }
 
