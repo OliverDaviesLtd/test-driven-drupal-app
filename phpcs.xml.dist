@@ -9,23 +9,23 @@
   <exclude-pattern>./web/sites/*</exclude-pattern>
   <exclude-pattern>./web/themes/custom/*\.(?!theme$)</exclude-pattern>
 
-  <!-- Exclude tests -->
-  <exclude-pattern>./web/modules/custom/**/*Test.php</exclude-pattern>
-
   <arg name="colors"/>
   <arg value="np"/>
 
   <rule ref="Drupal">
+    <exclude name="Drupal.Arrays.Array.LongLineDeclaration"/>
     <exclude name="Drupal.Commenting.ClassComment.Missing"/>
     <exclude name="Drupal.Commenting.DataTypeNamespace.DataTypeNamespace"/>
+    <exclude name="Drupal.Commenting.DocComment.ContentAfterOpen"/>
     <exclude name="Drupal.Commenting.DocComment.MissingShort"/>
     <exclude name="Drupal.Commenting.FileComment.Missing"/>
     <exclude name="Drupal.Commenting.FunctionComment.Missing"/>
     <exclude name="Drupal.Commenting.FunctionComment.MissingParamComment"/>
+    <exclude name="Drupal.Commenting.FunctionComment.MissingReturnComment"/>
     <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition"/>
     <exclude name="Drupal.Commenting.FunctionComment.ParamTypeSpaces"/>
-    <exclude name="Drupal.Commenting.FunctionComment.MissingReturnComment"/>
     <exclude name="Drupal.Commenting.VariableComment.Missing"/>
+    <exclude name="Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
   </rule>
 
   <rule ref="DrupalPractice">

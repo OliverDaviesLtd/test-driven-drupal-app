@@ -56,7 +56,6 @@ class ViewSessionProposalTest extends SessionTestBase {
     $this->assertSession()->statusCodeEquals(Response::HTTP_FORBIDDEN);
   }
 
-
   /** @test */
   public function only_session_proposals_should_be_shown(): void {
     $user = $this->drupalCreateUser(['create page content', 'create session content']);
@@ -72,4 +71,5 @@ class ViewSessionProposalTest extends SessionTestBase {
     $assert->pageTextContainsOnce('Taking Flight with Tailwind CSS');
     $assert->pageTextNotContains('A basic page');
   }
+
 }

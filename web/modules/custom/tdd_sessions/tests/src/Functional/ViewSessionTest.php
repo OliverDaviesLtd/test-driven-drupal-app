@@ -46,5 +46,4 @@ final class ViewSessionTest extends SessionTestBase {
     $assert->pageTextNotContains('Oliver Davies');
   }
 
-
 }
