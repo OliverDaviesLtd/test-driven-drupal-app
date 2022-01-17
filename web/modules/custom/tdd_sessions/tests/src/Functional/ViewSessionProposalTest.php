@@ -22,4 +22,26 @@ class ViewSessionProposalTest extends SessionTestBase {
     $assert->pageTextContainsOnce('Taking Flight with Tailwind CSS');
   }
 
+  /** @test */
+  public function a_user_should_see_only_their_sessions(): void {
+    $this->drupalLogin($userA = $this->drupalCreateUser(['create session content']));
+    $userB = $this->drupalCreateUser(['create session content']);
+
+    $this->createSession([
+      'title' => 'Taking Flight with Tailwind CSS',
+      'uid' => $userA,
+    ]);
+
+    $this->createSession([
+      'title' => 'Deploying PHP applications with Ansible and Ansistrano',
+      'uid' => $userB,
+    ]);
+
+    $this->drupalGet("user/{$userA->id()}/sessions");
+
+    $assert = $this->assertSession();
+    $assert->statusCodeEquals(Response::HTTP_OK);
+    $assert->pageTextContainsOnce('Taking Flight with Tailwind CSS');
+    $assert->pageTextNotContains('Deploying PHP applications with Ansible and Ansistrano');
+  }
 }
