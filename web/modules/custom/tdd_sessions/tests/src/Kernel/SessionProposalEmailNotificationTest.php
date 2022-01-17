@@ -4,6 +4,7 @@ namespace Drupal\Tests\tdd_sessions\Kernel;
 
 use Drupal\Core\Test\AssertMailTrait;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
+use Drupal\tdd_sessions\EventSubscriber\EmailSessionProposalConfirmationToUser;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
@@ -32,11 +33,13 @@ class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
 
     $this->createNode(['type' => 'session']);
 
+    /** @var array{ key: string }[] */
     $mails = $this->getMails();
 
     $this->assertCount(1, $mails);
 
-    // TODO: assert that the correct email is sent.
+    $this->assertSame(EmailSessionProposalConfirmationToUser::MAIL_KEY, $mails[0]['key']);
+
     // TODO: assert that the email is sent to the correct email address.
     // TODO: an email should not be sent if the user does not have an email address.
   }
