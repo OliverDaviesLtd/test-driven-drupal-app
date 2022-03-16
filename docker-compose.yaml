@@ -10,12 +10,16 @@ services:
       target: dev
     volumes:
       - ./:/var/www/html
-    ports:
-      - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:80}:80"
     tty: true
     depends_on:
       mysql:
         condition: service_healthy
+    networks:
+      - default
+      - web
+    labels:
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.http.routers.test-driven-drupal.rule=Host(`test-driven-drupal.docker.localhost`)"
 
   mysql:
     <<: *default-app
@@ -25,7 +29,15 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
       interval: 1s
+    networks:
+      - default
+    labels:
+      - "traefik.enable=false"
 
 volumes:
-  db-data:
-  files:
+  db-data: {}
+  files: {}
+
+networks:
+  web:
+    name: traefik_proxy
