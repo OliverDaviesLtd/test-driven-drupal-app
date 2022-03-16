@@ -34,22 +34,29 @@ class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
 
   /** @test */
   public function an_email_should_be_sent_to_the_user_when_they_submit_a_session(): void {
-    $this->assertCount(0, $this->getMails());
+    $this->assertMailCount(expectedCount: 0);
 
     SessionFactory::create(
       account: $this->createUser(values: ['mail' => 'speaker@example.com']),
       overrides: ['title' => '::title::'],
     )->save();
 
+    $this->assertMailCount(expectedCount: 1);
+
     /** @var array{ key: string, to: string }[] */
     $mails = $this->getMails();
-
-    $this->assertCount(1, $mails);
 
     $this->assertSame(EmailSessionProposalConfirmationToSpeaker::MAIL_KEY, $mails[0]['key']);
     $this->assertSame('speaker@example.com', $mails[0]['to']);
 
     // TODO: an email should not be sent if the user does not have an email address.
+  }
+
+  private function assertMailCount(int $expectedCount): void {
+    $this->assertCount(
+      expectedCount: $expectedCount,
+      haystack: $this->getMails(),
+    );
   }
 
 }
