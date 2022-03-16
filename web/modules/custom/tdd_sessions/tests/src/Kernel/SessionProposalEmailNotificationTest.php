@@ -14,11 +14,15 @@ class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
   use NodeCreationTrait;
 
   public static $modules = [
+    // Core.
     'filter',
     'node',
 
+    // Contrib.
     'hook_event_dispatcher',
     'core_event_dispatcher',
+
+    // Custom.
     'tdd_sessions',
   ];
 
