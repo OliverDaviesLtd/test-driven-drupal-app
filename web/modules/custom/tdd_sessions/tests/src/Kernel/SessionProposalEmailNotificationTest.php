@@ -5,6 +5,7 @@ namespace Drupal\Tests\tdd_sessions\Kernel;
 use Drupal\Core\Test\AssertMailTrait;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 use Drupal\tdd_sessions\EventSubscriber\EmailSessionProposalConfirmationToSpeaker;
+use Drupal\tdd_sessions\Factory\SessionFactory;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
@@ -31,8 +32,10 @@ class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
   public function an_email_should_be_sent_to_the_user_when_they_submit_a_session(): void {
     $this->assertCount(0, $this->getMails());
 
-    $speaker = $this->createUser(['mail' => 'speaker@example.com']);
-    $this->createNode(['type' => 'session', 'uid' => $speaker]);
+    SessionFactory::create(
+      overrides: ['title' => '::title::'],
+      user: $this->createUser(values: ['mail' => 'speaker@example.com']),
+    )->save();
 
     /** @var array{ key: string, to: string }[] */
     $mails = $this->getMails();
