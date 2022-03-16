@@ -33,8 +33,8 @@ class SessionProposalEmailNotificationTest extends EntityKernelTestBase {
     $this->assertCount(0, $this->getMails());
 
     SessionFactory::create(
+      account: $this->createUser(values: ['mail' => 'speaker@example.com']),
       overrides: ['title' => '::title::'],
-      user: $this->createUser(values: ['mail' => 'speaker@example.com']),
     )->save();
 
     /** @var array{ key: string, to: string }[] */
