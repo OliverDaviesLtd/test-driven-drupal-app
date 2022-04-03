@@ -58,10 +58,21 @@ class ViewSessionProposalTest extends SessionTestBase {
 
   /** @test */
   public function only_session_proposals_should_be_shown(): void {
-    $user = $this->drupalCreateUser(['create page content', 'create session content']);
+    $user = $this->drupalCreateUser([
+      'create page content',
+      'create session content',
+    ]);
 
-    $this->createSession(['title' => 'Taking Flight with Tailwind CSS', 'uid' => $user]);
-    $this->drupalCreateNode(['title' => 'A basic page', 'type' => 'page', 'uid' => $user]);
+    $this->createSession([
+      'title' => 'Taking Flight with Tailwind CSS',
+      'uid' => $user,
+    ]);
+
+    $this->drupalCreateNode([
+      'title' => 'A basic page',
+      'type' => 'page',
+      'uid' => $user,
+    ]);
 
     $this->drupalLogin($user);
 

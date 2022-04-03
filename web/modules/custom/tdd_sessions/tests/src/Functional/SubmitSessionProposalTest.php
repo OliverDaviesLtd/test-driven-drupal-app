@@ -26,13 +26,20 @@ final class SubmitSessionProposalTest extends SessionTestBase {
 
     // Assert.
     $session = Node::load(1);
+
     $this->assertNotNull($session);
     $this->assertInstanceOf(NodeInterface::class, $session);
-    $this->assertSame('Test Driven Drupal', $session->label());
+
+    $this->assertSame(
+      'Test Driven Drupal',
+      $session->label(),
+    );
+
     $this->assertSame(
       'A session on automated testing and test-driven development in Drupal.',
-      $session->get('body')->getValue()[0]['value']
+      $session->get('body')->getValue()[0]['value'],
     );
+
     $this->assertSame($speaker->id(), $session->getOwnerId());
   }
 
