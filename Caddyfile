@@ -1,0 +1,6 @@
+{$SERVER_NAME}
+
+root * /var/www/html/web
+php_fastcgi php-fpm:9000
+encode gzip
+file_server

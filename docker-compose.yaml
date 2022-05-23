@@ -1,0 +1,29 @@
+services:
+  web:
+    image: caddy
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - .:/var/www/html
+    ports:
+      - "${DOCKER_WEB_PORT:-127.0.0.1:80}:80"
+    environment:
+      SERVER_NAME: "${SERVER_NAME:-:80}"
+
+  php-fpm:
+    build:
+      context: .
+    volumes:
+      - .:/var/www/html
+
+  mysql:
+    image: mariadb:10
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+      MYSQL_PASSWORD: drupal
+      MYSQL_USER: drupal
+
+volumes:
+  db-data: {}
