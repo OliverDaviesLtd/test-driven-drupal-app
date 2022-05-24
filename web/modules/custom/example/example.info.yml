@@ -1,5 +1,0 @@
-name: Example module
-description: An example module with some basic tests.
-type: module
-core_version_requirement: ^9
-package: Test Driven Drupal
