@@ -2,6 +2,7 @@
 !*/
 !/*.md
 !/.env.example
+!/.hadolint.yaml
 !/.github/**
 !/.gitignore
 !/.idea/**

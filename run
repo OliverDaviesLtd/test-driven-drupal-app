@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -10,18 +10,19 @@ fi
 DC="${DC:-exec}"
 
 function ci:test {
-  lint:dockerfile
+  docker compose version
 
-  cp .env.example .env
+  cp --no-clobber .env.example .env
 
-  docker-compose up --detach
+  DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose build --progress plain
 
-  composer validate --strict
-  composer install
+  docker compose up --detach
+  docker compose ps
+  docker compose logs
 
-  test:quality
-  test:integration --testdox
-  DC=exec test:functional --testdox
+  composer install --quiet --no-progress
+
+  cmd phpunit --testdox --colors=always
 }
 
 function cmd {
@@ -58,6 +59,7 @@ function lint:dockerfile {
   docker container run --rm -i \
     hadolint/hadolint hadolint \
     --ignore=DL3008 \
+    --ignore=DL3059 \
     --ignore=DL3022 \
     "${@}" - < Dockerfile
 }
@@ -99,7 +101,7 @@ function test:unit {
 }
 
 function _dc {
-  docker-compose ${DC} ${TTY} "${@}"
+  docker compose ${DC} ${TTY} "${@}"
 }
 
 function _fix_public_files_directory_permissions {

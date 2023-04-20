@@ -38,7 +38,7 @@ COPY --chown=app:app phpunit.xml* ./
 USER app
 
 RUN composer validate --strict
-RUN composer install
+RUN composer install --quiet --no-progress
 
 COPY --chown=app:app tools/docker/images/php/root /
 

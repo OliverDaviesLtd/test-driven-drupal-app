@@ -17,12 +17,12 @@
     <env name="MINK_DRIVER_ARGS_WEBDRIVER" value=''/>
     <env name="MINK_DRIVER_CLASS" value=''/>
     <env name="SIMPLETEST_BASE_URL" value="http://web"/>
-    <env name="SIMPLETEST_DB" value="sqlite://localhost//tmp/test.sqlite"/>
+    <env name="SIMPLETEST_DB" value="sqlite://localhost//dev/shm/test.sqlite"/>
 
     <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
   </php>
-
+   
   <testsuites>
     <testsuite name="functional">
       <directory>./web/modules/custom/**/tests/**/Functional</directory>
