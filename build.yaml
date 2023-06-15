@@ -1,0 +1,35 @@
+name: test-driven-drupal
+language: php
+type: drupal-project
+
+
+web:
+  type: caddy
+
+database:
+  type: mariadb
+  version: 10
+  extra_databases: []
+
+php:
+  version: 8.2-fpm-bullseye
+  phpcs:
+    standard: Drupal,DrupalPractice
+  phpstan:
+    level: max
+
+drupal:
+  docroot: web
+
+docker-compose:
+  services:
+    - database
+    - php
+    - web
+
+dockerfile:
+  stages:
+    build:
+      commands:
+        - composer validate --strict
+        - composer install --quiet --no-progress

@@ -5,12 +5,12 @@
 !/.hadolint.yaml
 !/.github/**
 !/.gitignore
-!/.idea/**
-!/.php-version
+!/build.yaml
 !/composer.*
 !/config/**
 !/Dockerfile
 !/docker-compose*.yaml
+!/justfile
 !/phpcs.xml.dist
 !/phpstan.neon
 !/phpunit.xml.dist
