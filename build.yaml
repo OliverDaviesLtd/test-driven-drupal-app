@@ -2,7 +2,6 @@ name: test-driven-drupal
 language: php
 type: drupal-project
 
-
 web:
   type: caddy
 
@@ -12,8 +11,10 @@ database:
   extra_databases: []
 
 php:
-  version: 8.2-fpm-bullseye
+  version: 8.1-fpm-bullseye
   phpcs:
+    paths:
+      - web/modules/custom
     standard: Drupal,DrupalPractice
   phpstan:
     level: max
@@ -33,3 +34,6 @@ dockerfile:
       commands:
         - composer validate --strict
         - composer install --quiet --no-progress
+
+experimental:
+  createGitHubActionsConfiguration: true

@@ -4,6 +4,7 @@
 <ruleset name="test-driven-drupal coding standards">
   <description>PHPCS configuration file for test-driven-drupal.</description>
 
+    <file>web/modules/custom</file>
   
   <arg value="np"/>
 

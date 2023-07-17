@@ -16,6 +16,8 @@ function ci:test {
 
   DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose build --progress plain
 
+  docker network create traefik_proxy
+
   docker compose up --detach
   docker compose ps
   docker compose logs

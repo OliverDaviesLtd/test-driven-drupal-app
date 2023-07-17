@@ -1,9 +1,8 @@
 name: CI
 
 on:
+  pull_request:
   push:
-  schedule:
-    - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
 env:
@@ -12,10 +11,35 @@ env:
   DOCKER_UID: 1001
 
 jobs:
-  test:
-    name: Run tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+  build_and_test:
+    name: Build and test
 
-      - run: ./run ci:test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install just
+        run: |
+          curl --proto '=https' \
+            --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+
+      - name: Checkout the code
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+
+      - name: Build and test
+        run: |
+          docker compose version
+
+          docker network create traefik_proxy
+
+          cp --no-clobber .env.example .env
+
+          docker compose build --progress plain
+
+          docker compose up --detach
+          docker compose logs
+
+          just composer install --quiet --no-progress
+
+          just _run php phpcs
+          just _run php phpstan analyze --no-progress --memory-limit=512M
+          just test --testdox --colors=always

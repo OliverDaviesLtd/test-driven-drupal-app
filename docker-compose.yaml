@@ -72,4 +72,5 @@ volumes:
   db-data: {}
 networks:
   web:
+    external: true
     name: traefik_proxy
