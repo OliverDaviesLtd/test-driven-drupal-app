@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\tdd_sessions\Functional;
 
-use Drupal\Tests\BrowserTestBase;
 use Drupal\node\NodeInterface;
+use Drupal\Tests\BrowserTestBase;
 
 abstract class SessionTestBase extends BrowserTestBase {
 
